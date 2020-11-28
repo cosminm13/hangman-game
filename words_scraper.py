@@ -31,9 +31,3 @@ def scrape_category(URL):
         if 'href' in word:
             words.remove(word)  # remove words that don't match the format
     return category_name, words
-
-
-if __name__ == '__main__':
-    food_url = 'https://www.enchantedlearning.com/wordlist/food.shtml'
-    food_words = scrape_category(food_url)
-    print(food_words)
