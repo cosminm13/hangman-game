@@ -2,6 +2,7 @@ import csv
 
 
 def get_scores():
+    """Print a list of scores from the CSV file."""
     with open('scores.csv', 'r') as file:
         reader = csv.reader(file)
         r = 0
@@ -12,10 +13,10 @@ def get_scores():
 
 
 def add_score(word, wrong_guesses, outcome):
+    """Add a score to the CSV file."""
     with open('scores.csv', 'a', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow([word, wrong_guesses, outcome])
-
 
 # if __name__ == '__main__':
 #     get_scores()

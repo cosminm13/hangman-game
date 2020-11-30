@@ -4,6 +4,7 @@ import scores_parser
 
 
 def choose_category(categories):
+    """Print the categories in a readable format and let the user choose one of them."""
     for i, category in enumerate(categories):
         print(f'{i}.{category}')
     num = -1
@@ -16,11 +17,13 @@ def choose_category(categories):
 
 
 def choose_random_word(chosen_category):
+    """Pick a random word from a given category."""
     words = dictionary_parser.get_words_from_category(chosen_category)
     return random.choice(words)
 
 
 def set_allowed_failed_guesses(chosen_word):
+    """Set the maximum allowed number of failed guesses for a specific word length."""
     if len(chosen_word) < 10:
         return 4
     elif len(chosen_word) < 20:
@@ -30,13 +33,21 @@ def set_allowed_failed_guesses(chosen_word):
 
 
 def game(word, guesses):
+    """Main instance of the game.
+    Based on the chosen word, generate its censored version.
+
+    After each guess, update the game window depending on the outcome (correct or wrong).
+    If the guessed letter is found in the word, the censored version is updated accordingly.
+    Otherwise, the number of guesses left decreases by one.
+
+    The game ends when either the word is found or the number of guesses left is zero.
+    """
     wrong_guesses = 0
     censored_word = word
     for i in range(0, len(censored_word)):
         if censored_word[i].isalnum():
             censored_word = censored_word[:i] + '-' + censored_word[i + 1:]
     while guesses > 0 and '-' in censored_word:
-        guessed_letter = ''
         # print(censored_word)
         guessed_letter = display_game(censored_word, guesses)
         for i in range(0, len(word)):
@@ -58,6 +69,7 @@ def game(word, guesses):
 
 
 def display_game(word, guesses):
+    """Prints a new instance of the game after every guess."""
     print(f'Guesses left: {guesses}')
     print(f'Current word: {word}')
     current_guess = input('Enter your current guess: ')
