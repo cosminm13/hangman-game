@@ -44,6 +44,7 @@ def game(word, guesses):
     """
     wrong_guesses = 0
     censored_word = word
+    already_guessed_letters = []
     for i in range(0, len(censored_word)):
         if censored_word[i].isalnum():
             censored_word = censored_word[:i] + '-' + censored_word[i + 1:]
@@ -53,6 +54,11 @@ def game(word, guesses):
         for i in range(0, len(word)):
             if word[i] == guessed_letter:
                 censored_word = censored_word[:i] + guessed_letter + censored_word[i + 1:]
+        if guessed_letter in already_guessed_letters:
+            guesses -= 1
+            wrong_guesses += 1
+        else:
+            already_guessed_letters.append(guessed_letter)
         if guessed_letter not in word:
             guesses -= 1
             wrong_guesses += 1
